@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload</title>
+    <style>
+      .file {
+        border: 1px solid whitesmoke;
+        padding: 1rem;
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <input type="file" name="file-upload" id="file-upload" />
+      <label for="file-upload">File Upload</label>
+      <button type="submit">submit</button>
+    </form>
+    <p class="file">I am pdf</p>
+    <img src="" alt="" class="image" />
+    <script>
+      var form = document.querySelector('form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const { 'file-upload': fileUpload } = e.target;
+
+        const fileReader = new FileReader();
+
+        fileReader.readAsArrayBuffer(fileUpload.files[0]);
+        const { name } = fileUpload.files[0];
+        console.log(name);
+        //readAsText ...file extension is txt or simply a text file
+        // text files incude: text characters, numbers, & symbols.
+        // no image.....text tile example .txt, .md, .js, .ts,.css
+
+        //
+        console.log(fileUpload.files[0]);
+        fileReader.addEventListener('load', (e) => {
+          const { result } = e.target;
+          //reading file
+          console.log(typeof result);
+
+          document.querySelector('.file').textContent = result;
+          // document.querySelector('.image')['src'] = result;
+
+          fetch('/pdf', {
+            method: 'post',
+            body: result,
+          })
+            .then((res) => res.text())
+            .then((data) => {
+              location.assign('http://localhost:3000/home.jpg');
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

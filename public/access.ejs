@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .notif {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        background-color: whitesmoke;
+        color: salmon;
+        padding: 1rem;
+        margin: 1rem;
+      }
+    </style>
+
+    <title>Pro Member...</title>
+  </head>
+  <body>
+    <% if (status ) { %>
+    <p class="notif">You are already logged in</p>
+    <% } %>
+    <h1 style="color: salmon; background: skyblue; padding: 1rem">
+      You are now a pro Member
+    </h1>
+    <form action="/log-out">
+      <button type="submit">log out</button>
+    </form>
+    <script>
+      setTimeout(() => {
+        document.querySelector('.notif').remove();
+      }, 3000);
+    </script>
+  </body>
+</html>
